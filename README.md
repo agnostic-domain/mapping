@@ -1,7 +1,7 @@
 <h1 align="center">Agnostic Domain Mapping</h1>
 
 <p align="center">
-    <a href="https://github.com/daniel-iwaniec/agnostic-domain-mapping">
+    <a href="https://github.com/agnostic-domain/mapping">
         <img src="https://i.imgur.com/0W5Ym0x.png" alt="Agnostic Domain Mapping" width="300" height="300">
     </a>
 </p>
@@ -47,7 +47,7 @@ and another set of framework constraints, but rather to <b>minimize</b>.
 # Installation
 
 ```bash
-composer require daniel-iwaniec/agnostic-domain-mapping
+composer require agnostic-domain/mapping
 ```
 
 # Getting started
