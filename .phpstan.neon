@@ -1,0 +1,8 @@
+parameters:
+    level: max
+    paths: [src, use-case/src, test]
+
+services:
+    -
+        class: ADM\Test\Analysis\GatewayLocator
+        tags: [phpstan.broker.dynamicMethodReturnTypeExtension]

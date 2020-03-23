@@ -1,0 +1,30 @@
+{
+  "name": "daniel-iwaniec/agnostic-domain-mapping",
+  "type": "library",
+  "license": "MIT",
+  "description": "Simplify the hydration and extraction of agnostic domain objects",
+  "authors": [
+    {
+      "name": "Daniel Iwaniec",
+      "email": "me@danieliwaniec.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "ADM\\": "src/",
+      "ADM\\Test\\": "test/",
+      "ADM\\UseCase\\": "use-case/src/"
+    },
+    "files": ["src/adm.php"]
+  },
+  "require": {
+    "php": "^7.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0.1",
+    "phpstan/phpstan": "^0.12.14",
+    "friendsofphp/php-cs-fixer": "^2.16.1",
+    "ramsey/uuid": "^3.9.3",
+    "doctrine/orm": "^2.7.1"
+  }
+}
