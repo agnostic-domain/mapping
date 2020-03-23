@@ -1,0 +1,11 @@
+language: php
+
+php:
+  - '7.4'
+
+install:
+  - composer install
+
+script: vendor/bin/phpunit -c .phpunit.xml &&
+  vendor/bin/phpstan analyze -c .phpstan.neon --no-progress &&
+  PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --config=.cs-fixer.php --dry-run --stop-on-violation
