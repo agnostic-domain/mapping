@@ -24,8 +24,6 @@
 
 # Rationale
 
-> Note that this is still largely experimental work in progress
-
 <p align="justify">
 According to DDD domain should be guarded against external constraints and let's say <i>agnostic</i>.
 Most ORMs impose constraints in order to work properly
@@ -55,7 +53,7 @@ composer require agnostic-domain/mapping
 ### Mapping data object to domain object
 
 ```php
-adm(Article::class)
+$article = adm(Article::class)
     ->id($data->id)
     ->title($data->title)($data);
 ```

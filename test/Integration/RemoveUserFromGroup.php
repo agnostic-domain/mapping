@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace ADM\Test\Integration;
 
-use Throwable;
-use Ramsey\Uuid\Uuid;
-use ADM\Exception;
-use ADM\UseCase\Infrastructure\Repository;
+use ADM\Exception\Unchecked;
+use ADM\UseCase\Application\Command\Handler\RemoveUserFromGroup as Handler;
+use ADM\UseCase\Application\Command\RemoveUserFromGroup as Command;
 use ADM\UseCase\Infrastructure\Data\User;
 use ADM\UseCase\Infrastructure\Locator;
-use ADM\UseCase\Application\Command\RemoveUserFromGroup as Command;
-use ADM\UseCase\Application\Command\Handler\RemoveUserFromGroup as Handler;
+use ADM\UseCase\Infrastructure\Repository;
+use Ramsey\Uuid\Uuid;
+use Throwable;
 
 final class RemoveUserFromGroup extends Test
 {
@@ -24,6 +24,9 @@ final class RemoveUserFromGroup extends Test
         $this->handler = new Handler(new Repository\Group(new Locator\Gateway(self::$doctrine)));
     }
 
+    /**
+     * @coversNothing
+     */
     public function testExecutingCommand(): void
     {
         try {
@@ -46,9 +49,10 @@ final class RemoveUserFromGroup extends Test
             $this->handler->handle(new Command($user1->id, $user1->groupId));
 
             self::$doctrine->clear();
+
             $this->assertNull(self::$doctrine->find(User::class, $user1->id));
         } catch (Throwable $exception) {
-            throw Exception\Unchecked::recast($exception);
+            throw Unchecked::recast($exception);
         }
     }
 }

@@ -1,6 +1,7 @@
 parameters:
     level: max
-    paths: [src, use-case/src, test]
+    paths: [src, use-case/src]
+    excludes_analyse: [src/adm.php]
 
 services:
     -

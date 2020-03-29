@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace ADM\Test\Analysis;
 
-use LogicException;
-use PHPStan\Type\Type;
+use ADM\Exception\Unchecked;
+use ADM\UseCase\Infrastructure\Locator;
+use Doctrine\ORM\EntityRepository;
+use PhpParser\Node\Expr\ClassConstFetch as ClassConstant;
+use PhpParser\Node\Expr\MethodCall as Call;
+use PhpParser\Node\Name as ClassName;
 use PHPStan\Analyser\Scope;
-use PHPStan\Type\ObjectType;
 use PHPStan\Reflection\MethodReflection as Method;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
-use PhpParser\Node\Name as ClassName;
-use PhpParser\Node\Expr\MethodCall as Call;
-use PhpParser\Node\Expr\ClassConstFetch as ClassConstant;
-use Doctrine\ORM\EntityRepository;
-use ADM\UseCase\Infrastructure\Locator;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\Type;
 
 final class GatewayLocator implements DynamicMethodReturnTypeExtension
 {
@@ -32,12 +32,12 @@ final class GatewayLocator implements DynamicMethodReturnTypeExtension
     {
         $classConstant = $call->args[0]->value;
         if (!$classConstant instanceof ClassConstant) {
-            throw new LogicException(sprintf('Expected %s got %s', ClassConstant::class, get_class($classConstant)));
+            throw new Unchecked(sprintf('Expected %s got %s', ClassConstant::class, get_class($classConstant)));
         }
 
         $className = $classConstant->class;
         if (!$className instanceof ClassName) {
-            throw new LogicException(sprintf('Expected %s got %s', ClassName::class, get_class($className)));
+            throw new Unchecked(sprintf('Expected %s got %s', ClassName::class, get_class($className)));
         }
 
         $fqn = $className->parts;

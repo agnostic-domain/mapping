@@ -4,31 +4,34 @@ declare(strict_types=1);
 
 namespace ADM\Test\Unit;
 
-use ADM\Exception;
-use ADM\Mapping\Helper;
-use ADM\Mapping\Mapper;
+use ADM\Exception\Unchecked\InvalidAdmArgument;
+use ADM\Extractor;
+use ADM\Helper;
+use ADM\Hydrator;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Throwable;
 
 final class Adm extends TestCase
 {
-    public function testCreatingMapper(): void
-    {
-        try {
-            $this->assertInstanceOf(Mapper::class, adm(stdClass::class));
-        } catch (Throwable $exception) {
-            throw Exception\Unchecked::recast($exception);
-        }
-    }
-
     public function testCreatingHelper(): void
     {
-        try {
-            $this->assertInstanceOf(Helper::class, adm());
-            $this->assertInstanceOf(Helper::class, adm(null));
-        } catch (Throwable $exception) {
-            throw Exception\Unchecked::recast($exception);
-        }
+        $this->assertInstanceOf(Helper::class, adm());
+        $this->assertInstanceOf(Helper::class, adm(null));
+    }
+
+    public function testCreatingExtractor(): void
+    {
+        $this->assertInstanceOf(Extractor::class, adm(new stdClass()));
+    }
+
+    public function testCreatingHydrator(): void
+    {
+        $this->assertInstanceOf(Hydrator::class, adm(self::class));
+    }
+
+    public function testInvalidCall(): void
+    {
+        $this->expectException(InvalidAdmArgument::class);
+        adm(1);
     }
 }

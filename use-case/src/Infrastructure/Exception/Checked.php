@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace ADM\Exception;
+namespace ADM\UseCase\Infrastructure\Exception;
 
-use RuntimeException;
+use LogicException;
 use Throwable;
 
-class Unchecked extends RuntimeException
+class Checked extends LogicException
 {
     final public function __construct(string $message = '', int $code = 0, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }
 
-    final public static function recast(Throwable $exception): Unchecked
+    final public static function recast(Throwable $exception): Checked
     {
         return new static($exception->getMessage(), $exception->getCode(), $exception);
     }

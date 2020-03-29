@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ADM\UseCase\Infrastructure\Data\Gateway;
 
-use ADM\UseCase\Infrastructure\Data\User as Dto;
+use ADM\UseCase\Infrastructure\Data\User as Data;
 use ADM\UseCase\Infrastructure\Exception\Unchecked;
 use Doctrine\ORM\EntityRepository;
 use Throwable;
@@ -12,7 +12,7 @@ use Throwable;
 final class User extends EntityRepository
 {
     /**
-     * @return Dto[]
+     * @return array<string, Data>
      */
     public function getGroup(string $id): array
     {
@@ -28,21 +28,21 @@ final class User extends EntityRepository
         }
     }
 
-    public function save(Dto $dto): void
+    public function save(Data $data): void
     {
         try {
-            $this->getEntityManager()->persist($dto);
-            $this->getEntityManager()->flush($dto);
+            $this->getEntityManager()->persist($data);
+            $this->getEntityManager()->flush($data);
         } catch (Throwable $exception) {
             throw Unchecked::recast($exception);
         }
     }
 
-    public function remove(Dto $dto): void
+    public function remove(Data $data): void
     {
         try {
-            $this->getEntityManager()->remove($dto);
-            $this->getEntityManager()->flush($dto);
+            $this->getEntityManager()->remove($data);
+            $this->getEntityManager()->flush($data);
         } catch (Throwable $exception) {
             throw Unchecked::recast($exception);
         }

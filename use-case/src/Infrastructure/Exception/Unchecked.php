@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace ADM\UseCase\Infrastructure\Exception;
 
-use Throwable;
 use RuntimeException;
+use Throwable;
 
-final class Unchecked extends RuntimeException
+class Unchecked extends RuntimeException
 {
-    public static function recast(Throwable $exception): self
+    final public function __construct(string $message = '', int $code = 0, Throwable $previous = null)
     {
-        return new self($exception->getMessage(), $exception->getCode(), $exception);
+        parent::__construct($message, $code, $previous);
+    }
+
+    final public static function recast(Throwable $exception): Unchecked
+    {
+        return new static($exception->getMessage(), $exception->getCode(), $exception);
     }
 }
