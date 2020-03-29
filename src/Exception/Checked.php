@@ -7,10 +7,15 @@ namespace ADM\Exception;
 use LogicException;
 use Throwable;
 
-final class Checked extends LogicException
+class Checked extends LogicException
 {
-    public static function recast(Throwable $exception): self
+    final public function __construct($message = '', $code = 0, Throwable $previous = null)
     {
-        return new self($exception->getMessage(), $exception->getCode(), $exception);
+        parent::__construct($message, $code, $previous);
+    }
+
+    final public static function recast(Throwable $exception): Checked
+    {
+        return new static($exception->getMessage(), $exception->getCode(), $exception);
     }
 }
