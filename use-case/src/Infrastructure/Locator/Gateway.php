@@ -16,8 +16,8 @@ final class Gateway
         $this->entityManager = $entityManager;
     }
 
-    public function get(string $dto): ObjectRepository
+    public function get(string $data): ObjectRepository
     {
-        return $this->entityManager->getRepository($dto);
+        return $this->entityManager->getRepository($data);
     }
 }

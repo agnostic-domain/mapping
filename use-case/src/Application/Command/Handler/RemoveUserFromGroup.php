@@ -26,7 +26,6 @@ final class RemoveUserFromGroup
         }
 
         $group->remove($command->userId());
-
         $this->repository->add($group);
     }
 }
