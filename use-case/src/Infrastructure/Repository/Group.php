@@ -30,31 +30,31 @@ final class Group implements Domain\Repository\Group
     public function add(Aggregate $aggregate): void
     {
         adm()->collection(adm()->data($aggregate), adm($aggregate)->users())
-            ->removed(function($dto) { $this->userGateway->remove($dto); })
-            ->added(function($dto) { $this->userGateway->save($dto); })
-            ->changed(function(Data\User $dto, Aggregate\User $entity) {
-                $dto->id = adm(adm($entity)->id())->uuid();
-                $dto->email = adm(adm($entity)->email())->email();
+            ->removed(function($data) { $this->userGateway->remove($data); })
+            ->added(function($data) { $this->userGateway->save($data); })
+            ->changed(function(Data\User $data, Aggregate\User $entity) {
+                $data->id = adm(adm($entity)->id())->uuid();
+                $data->email = adm(adm($entity)->email())->email();
             });
     }
 
     public function get(Id $id): Aggregate
     {
-        $dtos = $this->userGateway->getGroup(adm($id)->uuid());
+        $data = $this->userGateway->getGroup(adm($id)->uuid());
 
-        if (!$dtos) {
+        if (!$data) {
             throw NotFound::self(adm($id)->uuid());
         }
 
         return adm(Aggregate::class)
-            ->id(adm(Id::class)->uuid(reset($dtos)->groupId)())
-            ->users(array_map(fn($dto) => $this->user($dto), $dtos))($dtos);
+            ->id(adm(Id::class)->uuid(reset($data)->groupId)())
+            ->users(array_map(fn($data) => $this->user($data), $data))($data);
     }
 
-    private function user(Data\User $dto): Aggregate\User
+    private function user(Data\User $data): Aggregate\User
     {
         return adm(Aggregate\User::class)
-            ->id(adm(Id::class)->uuid($dto->id)())
-            ->email(adm(Email::class)->email($dto->email)())();
+            ->id(adm(Id::class)->uuid($data->id)())
+            ->email(adm(Email::class)->email($data->email)())();
     }
 }

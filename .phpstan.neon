@@ -1,6 +1,6 @@
 parameters:
     level: max
-    paths: [src, use-case/src, test]
+    paths: [src, use-case/src]
 
 services:
     -
