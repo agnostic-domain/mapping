@@ -8,9 +8,9 @@ use ADM\Helper;
 use ADM\Hydrator;
 
 /**
- * @param object|string|null $argument
+ * @param mixed $argument
  *
- * @return Extractor|Hydrator|Helper
+ * @return mixed
  */
 function adm($argument = null): object
 {
