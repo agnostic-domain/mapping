@@ -10,18 +10,19 @@ use ADM\UseCase\Domain\Repository\Group as Port;
 use ADM\UseCase\Domain\Value\Email;
 use ADM\UseCase\Domain\Value\Id;
 use ADM\UseCase\Infrastructure\Data;
+use ADM\UseCase\Infrastructure\Data\Gateway;
 use ADM\UseCase\Infrastructure\Exception\Repository\InvalidGateway;
 use ADM\UseCase\Infrastructure\Locator;
 
 final class Group implements Port
 {
-    private Data\Gateway\User $userGateway;
+    private Gateway\User $userGateway;
 
     public function __construct(Locator\Gateway $gatewayLocator)
     {
         $userGateway = $gatewayLocator->get(Data\User::class);
-        if (!$userGateway instanceof Data\Gateway\User) {
-            throw InvalidGateway::self(Data\Gateway\User::class);
+        if (!$userGateway instanceof Gateway\User) {
+            throw InvalidGateway::self(Gateway\User::class);
         }
 
         $this->userGateway = $userGateway;
