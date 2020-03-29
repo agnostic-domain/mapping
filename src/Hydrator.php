@@ -11,11 +11,18 @@ use Generator;
 use ReflectionClass;
 use Throwable;
 
+/**
+ * @template T of object
+ */
 final class Hydrator
 {
     private object $object;
+    /** @var ReflectionClass<T> */
     private ReflectionClass $reflection;
 
+    /**
+     * @param class-string<T> $class
+     */
     public function __construct(string $class)
     {
         try {
@@ -28,6 +35,8 @@ final class Hydrator
 
     /**
      * @param array<int, mixed> $arguments
+     *
+     * @return self<T>
      */
     public function __call(string $propertyName, array $arguments): self
     {

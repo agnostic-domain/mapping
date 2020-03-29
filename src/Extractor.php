@@ -8,11 +8,18 @@ use ADM\Exception\Unchecked;
 use ReflectionClass;
 use Throwable;
 
+/**
+ * @template T of object
+ */
 final class Extractor
 {
     private object $object;
+    /** @var ReflectionClass<T> */
     private ReflectionClass $reflection;
 
+    /**
+     * @param T $object
+     */
     public function __construct(object $object)
     {
         try {

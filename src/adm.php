@@ -10,7 +10,7 @@ use ADM\Hydrator;
 /**
  * @param object|string|null $argument
  *
- * @return Extractor&Hydrator&Helper
+ * @return Extractor|Hydrator|Helper
  */
 function adm($argument = null): object
 {
