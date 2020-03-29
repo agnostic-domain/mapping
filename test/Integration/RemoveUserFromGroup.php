@@ -46,6 +46,7 @@ final class RemoveUserFromGroup extends Test
             $this->handler->handle(new Command($user1->id, $user1->groupId));
 
             self::$doctrine->clear();
+
             $this->assertNull(self::$doctrine->find(User::class, $user1->id));
         } catch (Throwable $exception) {
             throw Exception\Unchecked::recast($exception);
