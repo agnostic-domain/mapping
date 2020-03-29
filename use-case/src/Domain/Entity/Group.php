@@ -10,7 +10,7 @@ use ADM\UseCase\Domain\Entity\Group\User;
 final class Group
 {
     private Id $id;
-    /** @var User[] */
+    /** @var array<string, User> */
     private array $users = [];
 
     public function __construct()
