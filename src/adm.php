@@ -2,19 +2,29 @@
 
 declare(strict_types=1);
 
-use ADM\Mapping\Helper;
-use ADM\Mapping\Mapper;
+use ADM\Exception\Unchecked\InvalidAdmArgument;
+use ADM\Extractor;
+use ADM\Helper;
+use ADM\Hydrator;
 
 /**
- * @param mixed $class
+ * @param object|string|null $argument
  *
- * @return mixed
+ * @return Extractor|Hydrator|Helper
  */
-function adm($class = null)
+function adm($argument = null): object
 {
-    if ($class === null) {
+    if (is_null($argument)) {
         return new Helper();
     }
 
-    return new Mapper($class);
+    if (is_string($argument)) {
+        return new Hydrator($argument);
+    }
+
+    if (is_object($argument)) {
+        return new Extractor($argument);
+    }
+
+    throw InvalidAdmArgument::self();
 }

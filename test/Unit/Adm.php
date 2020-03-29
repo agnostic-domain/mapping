@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace ADM\Test\Unit;
 
-use ADM\Exception;
-use ADM\Mapping\Helper;
-use ADM\Mapping\Mapper;
+use ADM\Exception\Unchecked;
+use ADM\Helper;
+use ADM\Hydrator;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Throwable;
@@ -16,9 +16,9 @@ final class Adm extends TestCase
     public function testCreatingMapper(): void
     {
         try {
-            $this->assertInstanceOf(Mapper::class, adm(stdClass::class));
+            $this->assertInstanceOf(Hydrator::class, adm(stdClass::class));
         } catch (Throwable $exception) {
-            throw Exception\Unchecked::recast($exception);
+            throw Unchecked::recast($exception);
         }
     }
 
@@ -28,7 +28,7 @@ final class Adm extends TestCase
             $this->assertInstanceOf(Helper::class, adm());
             $this->assertInstanceOf(Helper::class, adm(null));
         } catch (Throwable $exception) {
-            throw Exception\Unchecked::recast($exception);
+            throw Unchecked::recast($exception);
         }
     }
 }
