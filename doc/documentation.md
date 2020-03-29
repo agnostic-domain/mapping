@@ -114,7 +114,10 @@ final class Repository
             ->changed(function(Data\User $dataUser, Domain\User $domainUser) {
                 $dataUser->id = adm(adm($domainUser)->id())->value();
                 $dataUser->email = adm(adm($domainUser)->email())->value();
+                /* persist data user */
             });
     }
 }
 ```
+
+You can also check [example use case](use-case).
