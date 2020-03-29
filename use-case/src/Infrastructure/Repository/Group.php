@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace ADM\UseCase\Infrastructure\Repository;
 
-use ADM\UseCase\Domain;
 use ADM\UseCase\Domain\Entity\Group as Aggregate;
 use ADM\UseCase\Domain\Exception\Repository\NotFound;
+use ADM\UseCase\Domain\Repository\Group as Port;
 use ADM\UseCase\Domain\Value\Email;
 use ADM\UseCase\Domain\Value\Id;
 use ADM\UseCase\Infrastructure\Data;
-use ADM\UseCase\Infrastructure\Exception\Unchecked;
+use ADM\UseCase\Infrastructure\Exception\Repository\InvalidGateway;
 use ADM\UseCase\Infrastructure\Locator;
 
-final class Group implements Domain\Repository\Group
+final class Group implements Port
 {
     private Data\Gateway\User $userGateway;
 
@@ -21,7 +21,7 @@ final class Group implements Domain\Repository\Group
     {
         $userGateway = $gatewayLocator->get(Data\User::class);
         if (!$userGateway instanceof Data\Gateway\User) {
-            throw new Unchecked('Expected ' . Data\Gateway\User::class);
+            throw InvalidGateway::self(Data\Gateway\User::class);
         }
 
         $this->userGateway = $userGateway;
@@ -35,6 +35,7 @@ final class Group implements Domain\Repository\Group
             ->changed(function(Data\User $data, Aggregate\User $entity) {
                 $data->id = adm(adm($entity)->id())->uuid();
                 $data->email = adm(adm($entity)->email())->email();
+                $this->userGateway->save($data);
             });
     }
 
