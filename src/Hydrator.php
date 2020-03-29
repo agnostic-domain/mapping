@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ADM;
 
-use ADM\Exception;
 use ADM\Exception\Unchecked;
 use Closure;
 use Generator;
@@ -50,7 +49,7 @@ final class Hydrator
             $property->setAccessible(true);
             $property->setValue($this->object, $value);
         } catch (Throwable $exception) {
-            throw Exception\Unchecked::recast($exception);
+            throw Unchecked::recast($exception);
         }
 
         return $this;

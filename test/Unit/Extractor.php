@@ -22,6 +22,6 @@ final class Extractor extends TestCase
 
         $object->setProperty(1);
 
-        $this->assertSame(1, (new \ADM\Extractor($object))->property());
+        $this->assertSame(1, (new ADM\Extractor($object))->property());
     }
 }
