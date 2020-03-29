@@ -12,17 +12,42 @@ final class CollectionHandler extends TestCase
 {
     public function testRemoved(): void
     {
-        $this->assertTrue(true);
+        $collectionHandler = new ADM\Helper\CollectionHandler(
+            new ADM\Helper(),
+            [1 => new Data(1), 2 => new Data(2)],
+            [1 => new Entity(1)]
+        );
+
+        $collectionHandler->removed(function(Data $data): void {
+            $this->assertSame(2, $data->id);
+        });
     }
 
     public function testAdded(): void
     {
-        $this->assertTrue(true);
+        $collectionHandler = new ADM\Helper\CollectionHandler(
+            new ADM\Helper(),
+            [1 => new Data(1)],
+            [1 => new Entity(1), 2 => new Entity(2)]
+        );
+
+        $collectionHandler->added(function(Entity $entity): void {
+            $this->assertSame(2, $entity->id);
+        });
     }
 
     public function testChanged(): void
     {
-        $this->assertTrue(true);
+        $collectionHandler = new ADM\Helper\CollectionHandler(
+            new ADM\Helper(),
+            [1 => new Data(1)],
+            [1 => new Entity(1)]
+        );
+
+        $collectionHandler->changed(function(Data $data, Entity $entity): void {
+            $this->assertSame(1, $data->id);
+            $this->assertSame(1, $entity->id);
+        });
     }
 
     public function testOtherCall(): void
@@ -33,5 +58,25 @@ final class CollectionHandler extends TestCase
 
         $collectionHandler = new ADM\Helper\CollectionHandler(new ADM\Helper(), [], []);
         $this->assertSame($data, $collectionHandler->data($entity));
+    }
+}
+
+class Data
+{
+    public int $id;
+
+    public function __construct(int $id)
+    {
+        $this->id = $id;
+    }
+}
+
+class Entity
+{
+    public int $id;
+
+    public function __construct(int $id)
+    {
+        $this->id = $id;
     }
 }

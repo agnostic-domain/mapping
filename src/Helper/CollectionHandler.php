@@ -38,8 +38,8 @@ final class CollectionHandler
 
     public function removed(Closure $closure): self
     {
-        foreach ($this->removed as $object) {
-            $closure($object);
+        foreach ($this->removed as $data) {
+            $closure($data);
         }
 
         return $this;
@@ -47,8 +47,8 @@ final class CollectionHandler
 
     public function added(Closure $closure): self
     {
-        foreach ($this->added as $object) {
-            $closure($object);
+        foreach ($this->added as $entity) {
+            $closure($entity);
         }
 
         return $this;
@@ -56,8 +56,8 @@ final class CollectionHandler
 
     public function changed(Closure $closure): self
     {
-        foreach ($this->changed as $id => $object) {
-            $closure($object, $this->entities[$id]);
+        foreach ($this->changed as $id => $data) {
+            $closure($data, $this->entities[$id]);
         }
 
         return $this;

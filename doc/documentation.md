@@ -110,7 +110,7 @@ final class Repository
     {
         adm()->collection(adm()->data($group), adm($group)->users())
             ->removed(function($user) { /* remove data user */ })
-            ->added(function($user) { /* persist data user */ })
+            ->added(function($user) { /* persist entity user */ })
             ->changed(function(Data\User $dataUser, Domain\User $domainUser) {
                 $dataUser->id = adm(adm($domainUser)->id())->value();
                 $dataUser->email = adm(adm($domainUser)->email())->value();

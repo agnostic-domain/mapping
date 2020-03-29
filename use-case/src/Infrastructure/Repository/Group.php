@@ -31,13 +31,7 @@ final class Group implements Port
     public function add(Aggregate $aggregate): void
     {
         adm()->collection(adm()->data($aggregate), adm($aggregate)->users())
-            ->removed(function($data) { $this->userGateway->remove($data); })
-            ->added(function($data) { $this->userGateway->save($data); })
-            ->changed(function(Data\User $data, Aggregate\User $entity) {
-                $data->id = adm(adm($entity)->id())->uuid();
-                $data->email = adm(adm($entity)->email())->email();
-                $this->userGateway->save($data);
-            });
+            ->removed(function($data) { $this->userGateway->remove($data); });
     }
 
     public function get(Id $id): Aggregate
