@@ -12,7 +12,7 @@ use ADM\Hydrator;
  *
  * @return mixed
  */
-function adm($argument = null): object
+function adm($argument = null)
 {
     if (is_null($argument)) {
         return new Helper();

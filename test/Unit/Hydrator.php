@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ADM\Test\Unit;
 
+use ADM;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -11,7 +12,7 @@ final class Hydrator extends TestCase
 {
     public function testHydrating(): void
     {
-        $hydrator = new \ADM\Hydrator(Hydratee::class);
+        $hydrator = new ADM\Hydrator(Hydratee::class);
         $hydrator->integer(1);
         $hydrator->string(function() { return 'test'; });
         $hydrator->array(function() {
