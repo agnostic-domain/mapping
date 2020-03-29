@@ -120,4 +120,4 @@ final class Repository
 }
 ```
 
-You can also check [example use case](use-case).
+You can also check [example use case](../use-case).
