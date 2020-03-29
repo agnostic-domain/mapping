@@ -8,8 +8,19 @@ use PHPUnit\Framework\TestCase;
 
 final class Extractor extends TestCase
 {
-    public function test(): void
+    public function testExtracting(): void
     {
-        $this->assertTrue(true);
+        $object = new class() {
+            private int $property;
+
+            public function setProperty(int $value): void
+            {
+                $this->property = $value;
+            }
+        };
+
+        $object->setProperty(1);
+
+        $this->assertSame(1, (new \ADM\Extractor($object))->property());
     }
 }

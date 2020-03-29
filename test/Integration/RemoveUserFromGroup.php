@@ -24,6 +24,9 @@ final class RemoveUserFromGroup extends Test
         $this->handler = new Handler(new Repository\Group(new Locator\Gateway(self::$doctrine)));
     }
 
+    /**
+     * @coversNothing
+     */
     public function testExecutingCommand(): void
     {
         try {
