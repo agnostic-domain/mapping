@@ -7,7 +7,7 @@ Mapping API aims to achieve maximum simplicity without sacrificing agnosticy of 
 Global function `adm` accepts 3 types of arguments:
 * `string` - this must be the class string of object that should be constructed and hydrated.
 * `object` - this is the object from which data is extracted.
-* `null` or nothing - grants access to helper API.
+* `null` or preferably nothing - grants access to helper API.
 
 ## Hydrating class
 
