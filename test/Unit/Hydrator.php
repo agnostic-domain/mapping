@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ADM\Test\Unit;
 
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 final class Hydrator extends TestCase
 {
@@ -13,10 +14,16 @@ final class Hydrator extends TestCase
         $hydrator = new \ADM\Hydrator(Hydratee::class);
         $hydrator->integer(1);
         $hydrator->string(function() { return 'test'; });
-        $object = $hydrator();
+        $hydrator->array(function() {
+            foreach ([1, 2] as $integer) {
+                yield $integer;
+            }
+        });
+        $object = $hydrator(new stdClass());
 
         $this->assertSame(1, $object->getInteger());
         $this->assertSame('test', $object->getString());
+        $this->assertSame([1, 2], $object->getArray());
     }
 }
 
@@ -24,6 +31,8 @@ class Hydratee
 {
     private int $integer;
     private string $string;
+    /** @var array<int, int> */
+    private array $array;
 
     public function getInteger(): int
     {
@@ -33,5 +42,13 @@ class Hydratee
     public function getString(): string
     {
         return $this->string;
+    }
+
+    /**
+     * @return array<int, int>
+     */
+    public function getArray(): array
+    {
+        return $this->array;
     }
 }
